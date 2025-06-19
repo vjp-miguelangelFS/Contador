@@ -1,7 +1,25 @@
 let valor = 0.000;
         let activo = false;
         let intervalo = null;
-        const incrementoPorSegundo = 0.00221;
+        let incrementoPorSegundo = 0.00221;
+
+
+       function actualizarIncrementoPorSalario() {
+    const salario = parseFloat(document.getElementById("salarioMensualInput").value);
+    if (!isNaN(salario) && salario > 0) {
+        incrementoPorSegundo = salario / 576000; // 160 h/mes * 60 min * 60 s
+        localStorage.setItem('salarioMensual', salario); // Guardar salario
+        alert(`Nuevo incremento por segundo: ${incrementoPorSegundo.toFixed(6)} €`);
+    } else {
+        alert("Introduce un salario mensual válido.");
+    }
+}
+
+const salarioGuardado = localStorage.getItem('salarioMensual');
+if (salarioGuardado) {
+    incrementoPorSegundo = parseFloat(salarioGuardado) / 576000;
+    document.getElementById("salarioMensualInput").value = salarioGuardado;
+}
 
         let ultimoTiempo = Date.now();
 
