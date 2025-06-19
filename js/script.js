@@ -223,3 +223,28 @@ flechaToggle.addEventListener("click", () => {
         flechaToggle.innerHTML = '<i class="fa-solid fa-minus"></i>';
     }
 });
+
+let dias = parseInt(localStorage.getItem("contadorDias")) || 0;
+const inputDias = document.getElementById("inputDias");
+
+// Mostrar valor inicial
+inputDias.value = dias;
+
+// Botones + y –
+function cambiarDias(delta) {
+  dias = Math.max(0, dias + delta);
+  actualizarDias();
+}
+
+// Cambios manuales en el input
+inputDias.addEventListener("input", () => {
+  let nuevoValor = parseInt(inputDias.value);
+  dias = isNaN(nuevoValor) || nuevoValor < 0 ? 0 : nuevoValor;
+  actualizarDias();
+});
+
+function actualizarDias() {
+  inputDias.value = dias;
+  localStorage.setItem("contadorDias", dias);
+}
+
