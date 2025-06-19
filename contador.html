@@ -42,6 +42,11 @@
             border: 1px solid #2e7d32;
             color: #2e7d32;
         }
+
+        .resultadoGananciaBox {
+            min-height: 1.5em;
+            width: 250px;
+        }
     </style>
 </head>
 
@@ -69,23 +74,23 @@
         <div>
             <label for="diasInput" style="margin-bottom: 5px; font-weight: bold;">Días</label><br>
             <input type="number" id="diasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
-            <div id="resultadoGanancia" style="margin-top: 8px; font-weight: bold;"></div>
+            <div id="resultadoGanancia" class="resultadoGananciaBox" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
 
         <div>
             <label for="horasInput" style="margin-bottom: 5px; font-weight: bold;">Horas</label><br>
             <input type="number" id="horasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
-            <div id="resultadoGananciaHoras" style="margin-top: 8px; font-weight: bold;"></div>
+            <div id="resultadoGananciaHoras" class="resultadoGananciaBox" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
 
         <div>
             <label for="minutosInput" style="margin-bottom: 5px; font-weight: bold;">Minutos</label><br>
             <input type="number" id="minutosInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
-            <div id="resultadoGananciaMinutos" style="margin-top: 8px; font-weight: bold;"></div>
+            <div id="resultadoGananciaMinutos" class="resultadoGananciaBox" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
     </div>
 
-    <button onclick="calcularTodas()" style="margin-top: 30px; background-color: #14991b;color:white;">Calcular</button>
+    <button onclick="calcularTodas()" style="margin-top: 10px; background-color: #14991b;color:white;">Calcular</button>
 
     <div id="resultadoTotal" style="margin-top: 20px; font-size: 18px; font-weight: bold; color: green;"></div>
 </div>
