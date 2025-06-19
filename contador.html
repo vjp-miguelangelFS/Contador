@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contador de Euros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            text-align: center;
+            background-color: #f3f3f3;
+        }
+
+        #contador {
+            font-size: 3em;
+            margin: 20px;
+            color: #2e7d32;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 120px;
+        }
+
+        #estado {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        #btnReanudar.activo {
+            background-color: #c8e6c9;
+            border: 1px solid #2e7d32;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Contador </h1>
+    <div id="contador">0.000 €</div>
+
+    <button onclick="pausarContador()">Pausar</button>
+    <button id="btnReanudar" onclick="reanudarContador()">Reanudar</button>
+    <button onclick="limpiarContador()">Limpiar</button>
+
+    <div style="margin-top:20px;">
+        <input type="number" id="montoAgregar" step="0.001" placeholder="Añadir €">
+        <button onclick="agregarDinero()">Añadir</button>
+    </div>
+
+    <div id="estado">Estado: <span id="estadoTexto">En pausa</span></div>
+
+    <hr style="margin: 40px 0;">
+
+    <h2>Calculadora de Ganancia por Días</h2>
+    <div style="margin-top:10px;">
+        <input type="number" id="diasInput" min="1" placeholder="Número de días">
+        <button onclick="calcularGanancia()">Calcular</button>
+    </div>
+    <div id="resultadoGanancia" style="margin-top:15px; font-weight:bold;"></div>
+
+    <script>
+        let valor = 0.000;
+        let activo = false;
+        let intervalo = null;
+        const incrementoPorSegundo = 0.00221;
+
+        let ultimoTiempo = Date.now();
+
+        const contadorElem = document.getElementById("contador");
+        const btnReanudar = document.getElementById("btnReanudar");
+        const estadoTexto = document.getElementById("estadoTexto");
+
+        // Cargar valor y estado previo
+        if (localStorage.getItem("valorContador")) {
+            valor = parseFloat(localStorage.getItem("valorContador"));
+        }
+        if (localStorage.getItem("ultimoTiempo")) {
+            ultimoTiempo = parseInt(localStorage.getItem("ultimoTiempo"));
+        }
+
+        function actualizarContador() {
+            contadorElem.textContent = valor.toFixed(3) + " €";
+            localStorage.setItem("valorContador", valor.toFixed(3));
+        }
+
+        function actualizarEstadoVisual() {
+            if (activo) {
+                btnReanudar.classList.add("activo");
+                btnReanudar.textContent = "En marcha";
+                estadoTexto.textContent = "En marcha";
+            } else {
+                btnReanudar.classList.remove("activo");
+                btnReanudar.textContent = "Reanudar";
+                estadoTexto.textContent = "En pausa";
+            }
+        }
+
+        function loop() {
+            const ahora = Date.now();
+            const segundosPasados = (ahora - ultimoTiempo) / 1000;
+            ultimoTiempo = ahora;
+
+            if (activo) {
+                valor += incrementoPorSegundo * segundosPasados;
+                actualizarContador();
+            }
+
+            localStorage.setItem("ultimoTiempo", ultimoTiempo.toString());
+            requestAnimationFrame(loop); // más fiable que setInterval
+        }
+
+        function pausarContador() {
+            activo = false;
+            actualizarEstadoVisual();
+        }
+
+        function reanudarContador() {
+            activo = true;
+            ultimoTiempo = Date.now();
+            actualizarEstadoVisual();
+        }
+
+        function limpiarContador() {
+            pausarContador();
+            valor = 0.000;
+            actualizarContador();
+        }
+
+        function agregarDinero() {
+            const monto = parseFloat(document.getElementById("montoAgregar").value);
+            if (!isNaN(monto)) {
+                valor += monto;
+                actualizarContador();
+                document.getElementById("montoAgregar").value = "";
+            } else {
+                alert("Introduce una cantidad válida.");
+            }
+        }
+
+        // Guardar antes de cerrar
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("valorContador", valor.toFixed(3));
+            localStorage.setItem("ultimoTiempo", Date.now().toString());
+        });
+
+        actualizarContador();
+        actualizarEstadoVisual();
+        requestAnimationFrame(loop); // empieza la lógica
+
+        function calcularGanancia() {
+            const dias = parseInt(document.getElementById("diasInput").value);
+            if (!isNaN(dias) && dias > 0) {
+                const segundosTotales = dias * 60 * 60 * 8;
+                const ganancia = segundosTotales * incrementoPorSegundo;
+                document.getElementById("resultadoGanancia").textContent =
+                    `Ganancia estimada en ${dias} día(s): ${ganancia.toFixed(2)} €`;
+            } else {
+                alert("Introduce un número válido de días.");
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
