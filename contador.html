@@ -62,34 +62,36 @@
     <div id="estado">Estado: <span id="estadoTexto">En pausa</span></div>
 
     <hr style="margin: 40px 0;">
-    <div style="display: flex; justify-content: space-between;">
+    <div style="margin-top: 40px;">
+    <h2>Calculadora de Ganancia</h2>
+
+    <div style="display: flex;  align-items:center;justify-content:space-evenly; margin-bottom: 20px;">
         <div>
-            <h2>Calculadora de Ganancia por Días</h2>
-            <div style="margin-top:10px;">
-                <input type="number" id="diasInput" min="1" placeholder="Número de días">
-                <button onclick="calcularGanancia()">Calcular</button>
-            </div>
-            <div id="resultadoGanancia" style="margin-top:15px; font-weight:bold;"></div>
+            <label for="diasInput">Días</label><br>
+            <input type="number" id="diasInput" min="0" placeholder="0" style="width: 80px;">
+            <div id="resultadoGanancia" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
 
         <div>
-            <h2>Calculadora de Ganancia por horas</h2>
-            <div style="margin-top:10px;">
-                <input type="number" id="horasInput" min="1" placeholder="Número de horas">
-                <button onclick="calcularGananciaHoras()">Calcular</button>
-            </div>
-            <div id="resultadoGananciaHoras" style="margin-top:15px; font-weight:bold;"></div>
+            <label for="horasInput">Horas</label><br>
+            <input type="number" id="horasInput" min="0" placeholder="0" style="width: 80px;">
+            <div id="resultadoGananciaHoras" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
 
         <div>
-            <h2>Calculadora de Ganancia por minutos</h2>
-            <div style="margin-top:10px;">
-                <input type="number" id="minutosInput" min="1" placeholder="Número de minutos">
-                <button onclick="calcularGananciaMinutos()">Calcular</button>
-            </div>
-            <div id="resultadoGananciaMinutos" style="margin-top:15px; font-weight:bold;"></div>
+            <label for="minutosInput">Minutos</label><br>
+            <input type="number" id="minutosInput" min="0" placeholder="0" style="width: 80px;">
+            <div id="resultadoGananciaMinutos" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
     </div>
+
+    <button onclick="calcularTodas()" style="margin-top: 30px; background-color: #5dbe62;">Calcular</button>
+
+    <div id="resultadoTotal" style="margin-top: 20px; font-size: 18px; font-weight: bold; color: green;"></div>
+</div>
+
+</div>
+
 
 
     <script>
@@ -128,6 +130,28 @@
                 estadoTexto.textContent = "En pausa";
             }
         }
+
+        function calcularTodas() {
+    const dias = parseInt(document.getElementById("diasInput").value) || 0;
+    const horas = parseInt(document.getElementById("horasInput").value) || 0;
+    const minutos = parseInt(document.getElementById("minutosInput").value) || 0;
+
+    const segundosDias = dias * 8 * 60 * 60;
+    const segundosHoras = horas * 60 * 60;
+    const segundosMinutos = minutos * 60;
+
+    const gananciaDias = segundosDias * incrementoPorSegundo;
+    const gananciaHoras = segundosHoras * incrementoPorSegundo;
+    const gananciaMinutos = segundosMinutos * incrementoPorSegundo;
+
+    const total = gananciaDias + gananciaHoras + gananciaMinutos;
+
+    document.getElementById("resultadoGanancia").textContent = `Ganancia por días: ${gananciaDias.toFixed(2)} €`;
+    document.getElementById("resultadoGananciaHoras").textContent = `Ganancia por horas: ${gananciaHoras.toFixed(2)} €`;
+    document.getElementById("resultadoGananciaMinutos").textContent = `Ganancia por minutos: ${gananciaMinutos.toFixed(2)} €`;
+    document.getElementById("resultadoTotal").textContent = `Ganancia total estimada: ${total.toFixed(2)} €`;
+}
+
 
         function loop() {
             const ahora = Date.now();
