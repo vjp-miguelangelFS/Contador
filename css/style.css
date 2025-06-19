@@ -49,7 +49,7 @@ body {
         #contenedorCalculadoras {
             max-height: 1000px;
             overflow: hidden;
-            transition: max-height 0.5s ease;
+            transition: max-height 0.5s ease-in-out;
         }
 
         #contenedorCalculadoras.oculto {
