@@ -7,13 +7,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 30px;
+            padding-top: 20px;
             text-align: center;
             background-color: #f3f3f3;
         }
 
         #contador {
-            font-size: 3em;
+            font-size: 5em;
             margin: 20px;
             color: #2e7d32;
         }
@@ -47,6 +47,11 @@
             min-height: 1.5em;
             width: 250px;
         }
+        h1{
+            margin-top: 5px;;
+        }
+
+
     </style>
 </head>
 
@@ -66,36 +71,55 @@
 
     <div id="estado">Estado: <span id="estadoTexto">En pausa</span></div>
 
-    <hr style="margin: 40px 0;">
-    <div style="margin-top: 40px;">
-    <h2>Calculadora de Ganancia</h2>
+    <hr style="margin: 15px 0;">
+    <div style="margin-top: 5px;">
+        <button onclick="alternarModo()" style="margin-top: 10px; background-color: rgb(216, 216, 154);">Cambiar calculadora</button>
+        <div id="calculadoraNormal" style="margin-top: 40px;">
+            <h2>Calculadora de Ganancia</h2>
 
-    <div style="display: flex;  align-items:center;justify-content:space-evenly; margin-bottom: 20px;">
-        <div>
-            <label for="diasInput" style="margin-bottom: 5px; font-weight: bold;">Días</label><br>
-            <input type="number" id="diasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
-            <div id="resultadoGanancia" class="resultadoGananciaBox" style="margin-top: 8px; font-weight: bold;"></div>
+            <div style="display: flex;  align-items:center;justify-content:space-evenly; margin-bottom: 20px;">
+                <div>
+                    <label for="diasInput" style="margin-bottom: 5px; font-weight: bold;">Días</label><br>
+                    <input type="number" id="diasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
+                    <div id="resultadoGanancia" class="resultadoGananciaBox"
+                        style="margin-top: 8px; font-weight: bold;"></div>
+                </div>
+
+                <div>
+                    <label for="horasInput" style="margin-bottom: 5px; font-weight: bold;">Horas</label><br>
+                    <input type="number" id="horasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
+                    <div id="resultadoGananciaHoras" class="resultadoGananciaBox"
+                        style="margin-top: 8px; font-weight: bold;"></div>
+                </div>
+
+                <div>
+                    <label for="minutosInput" style="margin-bottom: 5px; font-weight: bold;">Minutos</label><br>
+                    <input type="number" id="minutosInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
+                    <div id="resultadoGananciaMinutos" class="resultadoGananciaBox"
+                        style="margin-top: 8px; font-weight: bold;"></div>
+                </div>
+            </div>
+
+            <button onclick="calcularTodas()"
+                style="margin-top: 10px; background-color: #14991b;color:white;">Calcular</button>
         </div>
+        
+        <div id="calculadoraInversa" style="display: none; margin-top: 5px;">
+    <h2>Calculadora Inversa</h2>
+    <input type="number" id="montoInverso" step="0.01" placeholder="Introduce €" style="width: 200px;">
+    <button onclick="calcularInverso()" style="margin-left: 10px;">Calcular tiempo</button>
 
-        <div>
-            <label for="horasInput" style="margin-bottom: 5px; font-weight: bold;">Horas</label><br>
-            <input type="number" id="horasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
-            <div id="resultadoGananciaHoras" class="resultadoGananciaBox" style="margin-top: 8px; font-weight: bold;"></div>
-        </div>
+    <div id="resultadoInverso" style="margin-top: 20px; font-weight: bold;"></div>
 
-        <div>
-            <label for="minutosInput" style="margin-bottom: 5px; font-weight: bold;">Minutos</label><br>
-            <input type="number" id="minutosInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
-            <div id="resultadoGananciaMinutos" class="resultadoGananciaBox" style="margin-top: 8px; font-weight: bold;"></div>
-        </div>
-    </div>
-
-    <button onclick="calcularTodas()" style="margin-top: 10px; background-color: #14991b;color:white;">Calcular</button>
+    <!-- ESTE BOTÓN FALTABA -->
+    <button id="btnAgregarInverso" onclick="agregarDineroDesdeInverso()" style="margin-top: 10px; display: none;">
+        Añadir este monto al contador
+    </button>
 
     <div id="resultadoTotal" style="margin-top: 20px; font-size: 18px; font-weight: bold; color: green;"></div>
 </div>
-
-</div>
+    </div>
+    </div>
 
 
 
@@ -137,27 +161,27 @@
         }
 
         function calcularTodas() {
-    const dias = parseInt(document.getElementById("diasInput").value) || 0;
-    const horas = parseInt(document.getElementById("horasInput").value) || 0;
-    const minutos = parseInt(document.getElementById("minutosInput").value) || 0;
+            const dias = parseInt(document.getElementById("diasInput").value) || 0;
+            const horas = parseInt(document.getElementById("horasInput").value) || 0;
+            const minutos = parseInt(document.getElementById("minutosInput").value) || 0;
 
-    const segundosDias = dias * 8 * 60 * 60;
-    const segundosHoras = horas * 60 * 60;
-    const segundosMinutos = minutos * 60;
+            const segundosDias = dias * 8 * 60 * 60;
+            const segundosHoras = horas * 60 * 60;
+            const segundosMinutos = minutos * 60;
 
-    const gananciaDias = segundosDias * incrementoPorSegundo;
-    const gananciaHoras = segundosHoras * incrementoPorSegundo;
-    const gananciaMinutos = segundosMinutos * incrementoPorSegundo;
+            const gananciaDias = segundosDias * incrementoPorSegundo;
+            const gananciaHoras = segundosHoras * incrementoPorSegundo;
+            const gananciaMinutos = segundosMinutos * incrementoPorSegundo;
 
-    const total = gananciaDias + gananciaHoras + gananciaMinutos;
+            const total = gananciaDias + gananciaHoras + gananciaMinutos;
 
-    document.getElementById("resultadoGanancia").textContent = `Ganancia por días: ${gananciaDias.toFixed(2)} €`;
-    document.getElementById("resultadoGananciaHoras").textContent = `Ganancia por horas: ${gananciaHoras.toFixed(2)} €`;
-    document.getElementById("resultadoGananciaMinutos").textContent = `Ganancia por minutos: ${gananciaMinutos.toFixed(2)} €`;
-    document.getElementById("resultadoTotal").textContent = `Ganancia total estimada: ${total.toFixed(2)} €`;
+            document.getElementById("resultadoGanancia").textContent = `Ganancia por días: ${gananciaDias.toFixed(2)} €`;
+            document.getElementById("resultadoGananciaHoras").textContent = `Ganancia por horas: ${gananciaHoras.toFixed(2)} €`;
+            document.getElementById("resultadoGananciaMinutos").textContent = `Ganancia por minutos: ${gananciaMinutos.toFixed(2)} €`;
+            document.getElementById("resultadoTotal").textContent = `Ganancia total estimada: ${total.toFixed(2)} €`;
 
-    document.getElementById("montoAgregar").value=total.toFixed(4);
-}
+            document.getElementById("montoAgregar").value = total.toFixed(4);
+        }
 
 
         function loop() {
@@ -247,6 +271,70 @@
                 alert("Introduce un número válido de minutos.");
             }
         }
+
+
+
+        //Inverso
+
+
+
+        let modoInverso = false;
+
+        function alternarModo() {
+    modoInverso = !modoInverso;
+
+    document.getElementById("calculadoraNormal").style.display = modoInverso ? "none" : "block";
+    document.getElementById("calculadoraInversa").style.display = modoInverso ? "block" : "none";
+}
+function agregarDineroDesdeInverso() {
+    const monto = parseFloat(document.getElementById("montoInverso").value);
+    if (!isNaN(monto) && monto > 0) {
+        valor += monto;
+        actualizarContador();
+        document.getElementById("montoInverso").value = "";
+        document.getElementById("resultadoInverso").innerHTML = "";
+        document.getElementById("btnAgregarInverso").style.display = "none";
+    }
+}
+
+
+       function calcularInverso() {
+    const monto = parseFloat(document.getElementById("montoInverso").value);
+    const resultadoDiv = document.getElementById("resultadoInverso");
+    const botonAgregar = document.getElementById("btnAgregarInverso");
+
+    resultadoDiv.innerHTML = "";
+    botonAgregar.style.display = "none";
+
+    if (isNaN(monto) || monto <= 0) {
+        resultadoDiv.textContent = "Introduce un monto válido mayor a 0.";
+        return;
+    }
+
+
+    
+    const segundosTotales = monto / incrementoPorSegundo;
+
+    const dias = Math.floor(segundosTotales / (8 * 60 * 60));
+    const restoDespuesDias = segundosTotales % (8 * 60 * 60);
+
+    const horas = Math.floor(restoDespuesDias / (60 * 60));
+    const restoDespuesHoras = restoDespuesDias % (60 * 60);
+
+    const minutos = Math.floor(restoDespuesHoras / 60);
+
+    if (dias > 0) resultadoDiv.innerHTML += `🕒 ${dias} jornada(s) de 8h<br>`;
+    if (horas > 0) resultadoDiv.innerHTML += `🕓 ${horas} hora(s)<br>`;
+    if (minutos > 0) resultadoDiv.innerHTML += `🕔 ${minutos} minuto(s)<br>`;
+
+    if (dias === 0 && horas === 0 && minutos === 0) {
+        resultadoDiv.textContent = "Ese monto es demasiado pequeño para representar tiempo.";
+    } else {
+        botonAgregar.style.display = "inline-block";
+    }
+}
+
+
     </script>
 
 
