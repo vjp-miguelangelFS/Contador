@@ -62,13 +62,35 @@
     <div id="estado">Estado: <span id="estadoTexto">En pausa</span></div>
 
     <hr style="margin: 40px 0;">
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <h2>Calculadora de Ganancia por Días</h2>
+            <div style="margin-top:10px;">
+                <input type="number" id="diasInput" min="1" placeholder="Número de días">
+                <button onclick="calcularGanancia()">Calcular</button>
+            </div>
+            <div id="resultadoGanancia" style="margin-top:15px; font-weight:bold;"></div>
+        </div>
 
-    <h2>Calculadora de Ganancia por Días</h2>
-    <div style="margin-top:10px;">
-        <input type="number" id="diasInput" min="1" placeholder="Número de días">
-        <button onclick="calcularGanancia()">Calcular</button>
+        <div>
+            <h2>Calculadora de Ganancia por horas</h2>
+            <div style="margin-top:10px;">
+                <input type="number" id="horasInput" min="1" placeholder="Número de horas">
+                <button onclick="calcularGananciaHoras()">Calcular</button>
+            </div>
+            <div id="resultadoGananciaHoras" style="margin-top:15px; font-weight:bold;"></div>
+        </div>
+
+        <div>
+            <h2>Calculadora de Ganancia por minutos</h2>
+            <div style="margin-top:10px;">
+                <input type="number" id="minutosInput" min="1" placeholder="Número de minutos">
+                <button onclick="calcularGananciaMinutos()">Calcular</button>
+            </div>
+            <div id="resultadoGananciaMinutos" style="margin-top:15px; font-weight:bold;"></div>
+        </div>
     </div>
-    <div id="resultadoGanancia" style="margin-top:15px; font-weight:bold;"></div>
+
 
     <script>
         let valor = 0.000;
@@ -160,14 +182,38 @@
         requestAnimationFrame(loop); // empieza la lógica
 
         function calcularGanancia() {
-            const dias = parseInt(document.getElementById("diasInput").value);
+            let dias = parseInt(document.getElementById("diasInput").value);
             if (!isNaN(dias) && dias > 0) {
-                const segundosTotales = dias * 60 * 60 * 8;
-                const ganancia = segundosTotales * incrementoPorSegundo;
+                let segundosTotales = dias * 60 * 60 * 8;
+                let ganancia = segundosTotales * incrementoPorSegundo;
                 document.getElementById("resultadoGanancia").textContent =
                     `Ganancia estimada en ${dias} día(s): ${ganancia.toFixed(2)} €`;
             } else {
                 alert("Introduce un número válido de días.");
+            }
+        }
+
+        function calcularGananciaHoras() {
+            let horas = parseInt(document.getElementById("horasInput").value);
+            if (!isNaN(horas) && horas > 0) {
+                let segundosTotales = horas * 60 * 60;
+                let ganancia = segundosTotales * incrementoPorSegundo;
+                document.getElementById("resultadoGananciaHoras").textContent =
+                    `Ganancia estimada en ${horas} hora(s): ${ganancia.toFixed(2)} €`;
+            } else {
+                alert("Introduce un número válido de horas.");
+            }
+        }
+
+        function calcularGananciaMinutos() {
+            let minutos = parseInt(document.getElementById("minutosInput").value);
+            if (!isNaN(minutos) && minutos > 0) {
+                let segundosTotales = minutos * 60;
+                let ganancia = segundosTotales * incrementoPorSegundo;
+                document.getElementById("resultadoGananciaMinutos").textContent =
+                    `Ganancia estimada en ${minutos} hora(s): ${ganancia.toFixed(2)} €`;
+            } else {
+                alert("Introduce un número válido de minutos.");
             }
         }
     </script>
