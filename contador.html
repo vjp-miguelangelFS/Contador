@@ -67,25 +67,25 @@
 
     <div style="display: flex;  align-items:center;justify-content:space-evenly; margin-bottom: 20px;">
         <div>
-            <label for="diasInput">Días</label><br>
-            <input type="number" id="diasInput" min="0" placeholder="0" style="width: 80px;">
+            <label for="diasInput" style="margin-bottom: 5px; font-weight: bold;">Días</label><br>
+            <input type="number" id="diasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
             <div id="resultadoGanancia" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
 
         <div>
-            <label for="horasInput">Horas</label><br>
-            <input type="number" id="horasInput" min="0" placeholder="0" style="width: 80px;">
+            <label for="horasInput" style="margin-bottom: 5px; font-weight: bold;">Horas</label><br>
+            <input type="number" id="horasInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
             <div id="resultadoGananciaHoras" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
 
         <div>
-            <label for="minutosInput">Minutos</label><br>
-            <input type="number" id="minutosInput" min="0" placeholder="0" style="width: 80px;">
+            <label for="minutosInput" style="margin-bottom: 5px; font-weight: bold;">Minutos</label><br>
+            <input type="number" id="minutosInput" min="0" placeholder="0" style="width: 80px;margin-top: 8px;">
             <div id="resultadoGananciaMinutos" style="margin-top: 8px; font-weight: bold;"></div>
         </div>
     </div>
 
-    <button onclick="calcularTodas()" style="margin-top: 30px; background-color: #5dbe62;">Calcular</button>
+    <button onclick="calcularTodas()" style="margin-top: 30px; background-color: #14991b;color:white;">Calcular</button>
 
     <div id="resultadoTotal" style="margin-top: 20px; font-size: 18px; font-weight: bold; color: green;"></div>
 </div>
@@ -150,6 +150,8 @@
     document.getElementById("resultadoGananciaHoras").textContent = `Ganancia por horas: ${gananciaHoras.toFixed(2)} €`;
     document.getElementById("resultadoGananciaMinutos").textContent = `Ganancia por minutos: ${gananciaMinutos.toFixed(2)} €`;
     document.getElementById("resultadoTotal").textContent = `Ganancia total estimada: ${total.toFixed(2)} €`;
+
+    document.getElementById("montoAgregar").value=total.toFixed(4);
 }
 
 
