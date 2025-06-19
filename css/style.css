@@ -1,70 +1,79 @@
 body {
-            font-family: Arial, sans-serif;
-            padding-top: 20px;
-            text-align: center;
-            background-color: #f3f3f3;
-        }
+    font-family: Arial, sans-serif;
+    padding-top: 20px;
+    text-align: center;
+    background-color: #f3f3f3;
+}
 
-        #contador {
-            font-size: 5em;
-            margin: 20px;
-            color: #2e7d32;
-        }
+#contador {
+    font-size: 5em;
+    margin: 20px;
+    color: #2e7d32;
+}
 
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 1em;
-            cursor: pointer;
-        }
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1em;
+    cursor: pointer;
+}
 
-        input[type="number"] {
-            padding: 10px;
-            font-size: 1em;
-            width: 120px;
-        }
+input[type="number"] {
+    padding: 10px;
+    font-size: 1em;
+    width: 120px;
+}
 
-        #estado {
-            margin-top: 15px;
-            font-weight: bold;
-            color: #555;
-        }
+#estado {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #555;
+}
 
-        #btnReanudar.activo {
-            background-color: #c8e6c9;
-            border: 1px solid #2e7d32;
-            color: #2e7d32;
-        }
+#btnReanudar.activo {
+    background-color: #c8e6c9;
+    border: 1px solid #2e7d32;
+    color: #2e7d32;
+}
 
-        .resultadoGananciaBox {
-            min-height: 1.5em;
-            width: 250px;
-        }
+.resultadoGananciaBox {
+    min-height: 1.5em;
+    width: 250px;
+}
 
-        h1 {
-            margin-top: 5px;
-            ;
-        }
+h1 {
+    margin-top: 5px;
+    ;
+}
 
-        #contenedorCalculadoras {
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
+#contenedorCalculadoras {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
 
-        #contenedorCalculadoras.oculto {
-            max-height: 0;
-            padding: 0;
-            margin: 0;
-        }
+#contenedorCalculadoras.oculto {
+    max-height: 0;
+    padding: 0;
+    margin: 0;
+}
 
-        #contenedorP{
-            position: relative;
-        }
-        #flechaToggle{
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin-right: 40px;
-            transform: scale(1.5);
-        }
+#contenedorP {
+    position: relative;
+}
+
+#flechaToggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 40px;
+    transform: scale(1.5);
+}
+
+#flechaToggle {
+    transition: 0.5s;
+}
+
+#flechaToggle:hover {
+    transform: scale(1.8);
+}

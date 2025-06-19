@@ -10,11 +10,12 @@
 
 <body>
 
-    <h1>Contador </h1>
+    <h1>Contador Salario</h1>
     <div style="margin-bottom: 20px;">
-    <input type="number" id="salarioMensualInput" placeholder="Salario mensual (€)" style="padding: 8px; width: 200px;">
-    <button onclick="actualizarIncrementoPorSalario()" style="padding: 8px;">Actualizar Salario</button>
-</div>
+        <input type="number" id="salarioMensualInput" placeholder="Salario mensual (€)"
+            style="padding: 8px; width: 200px;">
+        <button onclick="actualizarIncrementoPorSalario()" style="padding: 8px;">Actualizar Salario</button>
+    </div>
     <div id="contador">0.000 €</div>
 
     <button onclick="pausarContador()">Pausar</button>
@@ -76,14 +77,6 @@
                 <button onclick="calcularInverso()" style="margin-left: 10px;">Calcular tiempo</button>
 
                 <div id="resultadoInverso" style="margin-top: 20px; font-weight: bold;"></div>
-
-                <!-- ESTE BOTÓN FALTABA -->
-                <button id="btnAgregarInverso" onclick="agregarDineroDesdeInverso()"
-                    style="margin-top: 10px; display: none;">
-                    Añadir este monto al contador
-                </button>
-
-
             </div>
         </div>
     </div> <!-- CIERRE de contenedorCalculadoras -->
